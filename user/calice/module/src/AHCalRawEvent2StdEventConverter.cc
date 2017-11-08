@@ -23,7 +23,7 @@ auto dummy0 = eudaq::Factory<eudaq::StdEventConverter>::
 
 bool AHCalRawEvent2StdEventConverter::Converting(eudaq::EventSPC d1, eudaq::StdEventSP d2, eudaq::ConfigSPC conf) const {
    std::string sensortype = "Calice"; //TODO ?? "HBU"
-   const int planeCount = 1;
+   const int planeCount = 3;
    auto ev = std::dynamic_pointer_cast<const eudaq::RawEvent>(d1);
    size_t nblocks = ev->NumBlocks();
    std::vector<std::unique_ptr<eudaq::StandardPlane>> planes;
@@ -101,9 +101,19 @@ bool AHCalRawEvent2StdEventConverter::Converting(eudaq::EventSPC d1, eudaq::StdE
 int AHCalRawEvent2StdEventConverter::getPlaneNumberFromCHIPID(int chipid) const {
    int planeNumber = -1;
    switch ((chipid - 1) >> 2) {
-      case 48: //193
-         planeNumber = 0;
-         break;
+   // case 48: //193
+   //    planeNumber = 0;
+   //    break;
+   case 46://185
+      planeNumber = 0;
+      break;
+   case 42://169
+      planeNumber = 1;
+      break;
+   case 43://173
+      planeNumber = 2;
+      break;
+      
          // case 59: //237
          //    planeNumber = 0;
          //    break;
